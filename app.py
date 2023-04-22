@@ -31,7 +31,7 @@ def enlarge_img(image, scale_percent):
     resized_image = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
     return resized_image
 
-@app.route('/file', methods=['POST'])
+@app.route('/')
 def index():
     return 'hello bro'
 
