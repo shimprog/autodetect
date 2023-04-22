@@ -54,10 +54,11 @@ def upload_img():  # put application's code here
     plt.axis('off')
     plt.imshow(carplate_extract_img_gray, cmap='gray')
 
-    os.remove(path)
-    return str(pytesseract.image_to_string(
+    autonumber = str(pytesseract.image_to_string(
         carplate_extract_img_gray,
         config='--psm 6 --oem 3 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'))
+    os.remove(path)
+    return autonumber
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
