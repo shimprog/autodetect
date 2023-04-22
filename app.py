@@ -57,7 +57,7 @@ def upload_img():  # put application's code here
     autonumber = str(pytesseract.image_to_string(
         carplate_extract_img_gray,
         config='--psm 6 --oem 3 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'))
-    os.remove(path)
+    # os.remove(path)
     return autonumber
 
 if __name__ == '__main__':
