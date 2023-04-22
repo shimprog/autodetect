@@ -54,6 +54,7 @@ def upload_img():  # put application's code here
     plt.axis('off')
     plt.imshow(carplate_extract_img_gray, cmap='gray')
 
+    os.remove(path)
     return str(pytesseract.image_to_string(
         carplate_extract_img_gray,
         config='--psm 6 --oem 3 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'))
