@@ -5,7 +5,7 @@ import pytesseract
 import cv2
 
 app = Flask(__name__)
-# pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract'
+pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract'
 
 UPLOAD_FOLDER = './upload'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -31,8 +31,13 @@ def enlarge_img(image, scale_percent):
     resized_image = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
     return resized_image
 
+@app.route('/file', methods=['POST'])
+def index():
+    return 'hello bro'
 
-@app.route('/', methods=['POST'])
+
+
+@app.route('/file', methods=['POST'])
 def upload_img():  # put application's code here
     if 'file1' not in request.files:
         return 'there is no file1 in form!'
