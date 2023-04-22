@@ -1,6 +1,6 @@
 import os
 import shutil
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import matplotlib.pyplot as plt
 import pytesseract
 import cv2
@@ -68,8 +68,8 @@ def upload_img():
     autonumber = str(pytesseract.image_to_string(
         carplate_extract_img_gray,
         config='--psm 6 --oem 3 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'))
-    # os.remove(path)
-    return autonumber
+    return jsonify({'number': autonumber})
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
