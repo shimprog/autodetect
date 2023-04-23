@@ -6,7 +6,7 @@ import pytesseract
 import cv2
 
 app = Flask(__name__)
-# pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract'
+pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract'
 
 UPLOAD_FOLDER = './upload'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -14,7 +14,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def open_img(img_path):
     carplate_img = cv2.imread(img_path)
     carplate_img = cv2.cvtColor(carplate_img, cv2.COLOR_BGR2RGB)
-    plt.axis('off')
+    # plt.axis('off')
     plt.imshow(carplate_img)
     return carplate_img
 
@@ -28,7 +28,7 @@ def enlarge_img(image, scale_percent):
     width = int(image.shape[1] * scale_percent / 100)
     height = int(image.shape[0] * scale_percent / 100)
     dim = (width, height)
-    plt.axis('off')
+    # plt.axis('off')
     resized_image = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
     return resized_image
 
@@ -40,15 +40,15 @@ def index():
 
 @app.route('/file', methods=['POST'])
 def upload_img():
-    # for filename in os.listdir(UPLOAD_FOLDER):
-    #     file_path = os.path.join(UPLOAD_FOLDER, filename)
-    #     try:
-    #         if os.path.isfile(file_path) or os.path.islink(file_path):
-    #             os.unlink(file_path)
-    #         elif os.path.isdir(file_path):
-    #             shutil.rmtree(file_path)
-    #     except Exception as e:
-    #         print('Failed to delete %s. Reason: %s' % (file_path, e))
+    for filename in os.listdir(UPLOAD_FOLDER):
+        file_path = os.path.join(UPLOAD_FOLDER, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
 
     if 'file1' not in request.files:
         return 'there is no file1 in form!'
@@ -72,4 +72,4 @@ def upload_img():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="192.168.1.78", port=80, debug=True)
