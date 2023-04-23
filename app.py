@@ -55,9 +55,7 @@ def upload_img():
     file1 = request.files['file1']
     path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
     file1.save(path)
-    return jsonify({'number': 'autonumber'})
-
-
+    return jsonify({'number': path})
     carplate_img_rgb = open_img(img_path=path)
     carplate_haar_cascade = cv2.CascadeClassifier('./haar_cascades/haarcascade_russian_plate_number.xml')
     carplate_extract_img = carplate_extract(carplate_img_rgb, carplate_haar_cascade)
