@@ -37,7 +37,6 @@ def index():
     return 'hello bro'
 
 
-
 @app.route('/file', methods=['POST'])
 def upload_img():
     for filename in os.listdir(UPLOAD_FOLDER):
