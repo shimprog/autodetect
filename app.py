@@ -6,7 +6,7 @@ import pytesseract
 import cv2
 
 app = Flask(__name__)
-# pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract'
+pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract'
 
 UPLOAD_FOLDER = './upload'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -62,7 +62,7 @@ def upload_img():
     carplate_extract_img = enlarge_img(carplate_extract_img, 150)
     plt.imshow(carplate_extract_img)
     carplate_extract_img_gray = cv2.cvtColor(carplate_extract_img, cv2.COLOR_RGB2GRAY)
-    plt.axis('off')
+    # plt.axis('off')
     plt.imshow(carplate_extract_img_gray, cmap='gray')
 
     autonumber = str(pytesseract.image_to_string(
