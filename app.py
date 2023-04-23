@@ -40,21 +40,23 @@ def index():
 
 @app.route('/file', methods=['POST'])
 def upload_img():
-    for filename in os.listdir(UPLOAD_FOLDER):
-        file_path = os.path.join(UPLOAD_FOLDER, filename)
-        try:
-            if os.path.isfile(file_path) or os.path.islink(file_path):
-                os.unlink(file_path)
-            elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
-        except Exception as e:
-            print('Failed to delete %s. Reason: %s' % (file_path, e))
+    # for filename in os.listdir(UPLOAD_FOLDER):
+    #     file_path = os.path.join(UPLOAD_FOLDER, filename)
+    #     try:
+    #         if os.path.isfile(file_path) or os.path.islink(file_path):
+    #             os.unlink(file_path)
+    #         elif os.path.isdir(file_path):
+    #             shutil.rmtree(file_path)
+    #     except Exception as e:
+    #         print('Failed to delete %s. Reason: %s' % (file_path, e))
 
     if 'file1' not in request.files:
         return 'there is no file1 in form!'
     file1 = request.files['file1']
     path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
     file1.save(path)
+    return jsonify({'number': 'autonumber'})
+
 
     carplate_img_rgb = open_img(img_path=path)
     carplate_haar_cascade = cv2.CascadeClassifier('./haar_cascades/haarcascade_russian_plate_number.xml')
