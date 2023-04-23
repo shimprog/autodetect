@@ -72,4 +72,5 @@ def upload_img():
 
 
 if __name__ == '__main__':
-    app.run(host="192.168.1.78", port=80, debug=True)
+    # host = "192.168.1.78", port = 80
+    app.run(host="0.0.0.0", debug=True)
